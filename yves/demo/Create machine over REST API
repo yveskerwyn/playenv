@@ -1,0 +1,40 @@
+from JumpScale import j
+
+g8_address = 'be-g8-3.demo.greenitglobe.com'
+login = 'zaibon'
+password = '******'
+account = 'zaibon'
+location = 'be-g8-3'
+
+ocl = j.clients.openvcloud.get(g8_address, login, password)
+acc = ocl.account_get(account)
+vdc = acc.space_get('demo', location)
+
+if 'myVM' not in vdc.machines:
+    print('Start creation of the VMS')
+    vm = vdc.machine_create(name="myVM", memsize=2, vcpus=1, disksize=10, datadisks=[], image="Ubuntu 16.04 x64")
+    print('Machine %s created' % vm.name)
+else:
+    vm = vdc.machines['myVM']
+    print('Machine %s loaded' % vm.name)
+
+print('creation of an ssh connection to the VM')
+executor = vm.get_ssh_connection()
+
+print('Connection created')
+cuisine = executor.cuisine
+cuisine.core.run('ls /')
+
+print("List portforwardings")
+print(vm.portforwardings)
+if '80' not in [pf['publicPort'] for pf in vm.portforwardings]:
+    print("Open portforward from port 80 to port 8080")
+    vm.create_portforwarding(80, 8080)
+print(vm.portforwardings)
+
+
+print("Start HTTP file server")
+cmd = 'cd /;python3 -m http.server 8080'
+executor.cuisine.tmux.executeInScreen('demo', 'server', cmd=cmd)
+
+print("Go to http://%s to view the HTTP file server" % vm.space.model['publicipaddress'])

@@ -1,0 +1,27 @@
+
+
+vdcfarm__vdcfarm1:
+
+vdc__vdc4moscow:
+    vdcfarm: 'vdcfarm1'
+    g8.client.name: 'gig'
+    g8.location: 'be-scale-2'
+
+node.ovc__vm4docker:
+    os.image: 'ubuntu 14.04 x64'
+    vdc: 'vdc4moscow'
+    ports: '80:8888'
+
+os.ssh.ubuntu__vm4docker:
+    node: 'vm4docker'
+
+app_docker__docker:
+    os: vm4docker
+
+node.docker__docker:
+  image: 'jumpscale/demomoscow'
+  restart: true
+  os: 'vm4docker'
+  docker: docker
+  ports:
+    - '8888:8888'

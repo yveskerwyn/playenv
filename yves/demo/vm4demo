@@ -1,0 +1,50 @@
+FIRST - vdc4demo:
+
+g8client__gig:
+  g8.url: 'gig.demo.greenitglobe.com'
+  g8.login: 'moehaha2'
+  g8.password: 'IAM4greenIT'
+  g8.account: 'Account of Moehaha.com'
+
+ovc_user__yves:
+  g8.client.name: 'gig'
+  username: 'yves'
+  email: 'yves@vreegoebezig.be'
+  provider: 'itsyouonline'
+
+vdc__vdc4demo:
+  g8.client.name: 'gig'
+  g8.location: 'be-scale-2'
+  maxMemoryCapacity: 4
+  maxVDiskCapacity: 20
+  maxCPUCapacity: 4
+  maxNASCapacity: 20
+  maxArchiveCapacity: 20
+  maxNetworkOptTransfer: 5
+  maxNetworkPeerTransfer: 15
+  maxNumPublicIP: 1
+  ovc_user:
+    - 'yves'
+
+
+THEN - vm4demo:
+
+node.ovc__vm4demo:
+    os.image: 'ubuntu 16.04 x64'
+    disk.size: 10
+    datadisks:
+        - 'name:disk1 size:10 type:normal'
+    os.size: 2
+    ports:
+        - '7222:22'
+    vdc: 'vdc4demo'
+
+os.ssh.ubuntu__os_newvm:
+    node: 'vm4demo'
+    aysfs: false
+    authorized_sshkeys:
+        - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJnQ3CrxRMkRWoTbz3Qeboh4CdDZiwcUS+QT07PJO2vHk05j6zqT7SiIbizI/6euiffia9nPnTOXjA5peRX+dlwdamO+veSmbNZGKCsTW4v279mnTT5fdlsVpoxeWucZjSKdsvfhiE8bvjG/q8MiDqx6a9woY/KvG3Sln8/556jKC/zhykCtZhnZEd2h0q41f8CeZRKLKO6Zp/Y+Mx99cfsFOr07doFNAH31gP1thT4zukvfSu5DQBB4ZlARnkD2BzwtLM5QAE2O4KwRQq/+lzBw711y1WuS0xkaLTUKZyDIq109CbbkndLLkAU8guuc6L7mjFmXB9/J006fYzKz9V yves@yves-macbook-pros-MacBook-Pro.local'
+
+user.os__yves2:
+    password: 'ifilebugs'
+    os: 'os_newvm2'

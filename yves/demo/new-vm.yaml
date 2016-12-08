@@ -1,0 +1,61 @@
+node.ovc__newvm:
+    os.image: 'ubuntu 16.04 x64'
+    disk.size: 10
+    datadisks:
+        - 'name:disk1 size:50 type:normal'
+        - 'name:disk2 size:50 type:normal'
+    os.size: 2
+    ports:
+        - '2200:22'
+    vdc: 'vdc4yves'
+
+os.ssh.ubuntu__os_newvm:
+    node: 'newvm'
+    aysfs: false
+    authorized_sshkeys:
+        - ""
+
+user.os__yves:
+    password: 'ifilebugs'
+    os: os_newvm
+
+node.ovc__vm4thursday1:
+    os.image: 'ubuntu 16.04 x64'
+    disk.size: 10
+    datadisks:
+        - 'name:disk1 size:50 type:normal'
+        - 'name:disk2 size:50 type:normal'
+    os.size: 2
+    ports:
+        - '2200:22'
+    vdc: 'vdc4thursday'
+
+os.ssh.ubuntu__os_newvm1:
+    node: 'vm4thursday1'
+    aysfs: false
+    authorized_sshkeys:
+
+user.os__yves:
+    password: 'ifilebugs'
+    os: os_newvm1
+
+
+node.ovc__vm4br:
+    os.image: 'ubuntu 16.04 x64'
+    disk.size: 10
+    datadisks:
+        - 'name:disk1 size:10 type:normal'
+    os.size: 2
+    ports:
+        - '7122:22'
+    vdc: 'vdc4boardroom'
+
+os.ssh.ubuntu__os_newvm:
+    node: 'vm4br'
+    aysfs: false
+    authorized_sshkeys:
+        - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJnQ3CrxRMkRWoTbz3Qeboh4CdDZiwcUS+QT07PJO2vHk05j6zqT7SiIbizI/6euiffia9nPnTOXjA5peRX+dlwdamO+veSmbNZGKCsTW4v279mnTT5fdlsVpoxeWucZjSKdsvfhiE8bvjG/q8MiDqx6a9woY/KvG3Sln8/556jKC/zhykCtZhnZEd2h0q41f8CeZRKLKO6Zp/Y+Mx99cfsFOr07doFNAH31gP1thT4zukvfSu5DQBB4ZlARnkD2BzwtLM5QAE2O4KwRQq/+lzBw711y1WuS0xkaLTUKZyDIq109CbbkndLLkAU8guuc6L7mjFmXB9/J006fYzKz9V yves@yves-macbook-pros-MacBook-Pro.local'
+
+user.os__yves:
+    password: 'ifilebugs'
+    os: 'os_newvm'
